@@ -1,0 +1,73 @@
+import com.mysql.cj.jdbc.Driver;
+
+import java.sql.Connection;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Main{
+        public static void main(String[] args) {
+            Connection con=null;
+            PreparedStatement stat=null;
+            ResultSet rs=null;
+            Scanner sc=new Scanner(System.in);
+            try {
+                DriverManager.registerDriver(new Driver());
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/homework?useSSL=false&serverTimezone=UTC", "root", "czy1314520");
+                String a = sc.next();
+                if(!a.equals("增加")||!a.equals("删除")) {
+                    String sql = "select*from fff where name=?";
+                    stat = con.prepareStatement(sql);
+                    stat.setString(1, a);
+                rs = stat.executeQuery();
+                    while (rs.next()) {
+                        String name = rs.getString("name");
+                        int sn = rs.getInt("number");
+                        int cl = rs.getInt("class");
+                        System.out.println("姓名=" + name + "\t" + "学号=" + sn + "\t" + "班级" + cl);
+                    }
+                }
+
+                if (a.equals("增加")) {
+                    System.out.println("输入您想增加的各项信息，请按姓名+学号+班级输入");
+                    String sql2 = "insert into fff(name,number,class) values(?,?,?)";
+                    stat = con.prepareStatement(sql2);
+                    String b=sc.next();
+                    int c=sc.nextInt();
+                    int d=sc.nextInt();
+                    stat.setString(1,b);
+                    stat.setInt(2,c);
+                    stat.setInt(3,d);
+                    int result1=stat.executeUpdate();
+                    System.out.println("有"+result1+"行数据被增加");
+                }
+                if(a.equals("删除")){
+                    System.out.println("输入您想删除的姓名");
+                    String sql3="delete from fff where name=?";
+                    stat = con.prepareStatement(sql3);
+                    String e=sc.next();
+                    stat.setString(1,e);
+                    int result2=stat.executeUpdate();
+                    System.out.println("有"+result2+"行数据被删除");
+                }
+                if(a.equals("修改")){
+                    System.out.println("请输入您想更改学生的信息");
+                    String f=sc.next();
+                    System.out.println("请输入更改后学生的学号和班级");
+                    int g=sc.nextInt();
+                    int h=sc.nextInt();
+                    String sql4="update fff set number=?,class=? where name=?";
+                    stat = con.prepareStatement(sql4);
+                    stat.setInt(1,g);
+                    stat.setInt(2,h);
+                    stat.setString(3,f);
+                    int result3=stat.executeUpdate();
+                    System.out.println("有"+result3+"行数据被修改");
+                }
+            }
+            catch (ClassNotFoundException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+}
