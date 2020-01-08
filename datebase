@@ -1,0 +1,38 @@
+/*
+ Navicat MySQL Data Transfer
+
+ Source Server         : www
+ Source Server Type    : MySQL
+ Source Server Version : 80018
+ Source Host           : localhost:3306
+ Source Schema         : homework
+
+ Target Server Type    : MySQL
+ Target Server Version : 80018
+ File Encoding         : 65001
+
+ Date: 08/01/2020 15:05:00
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for ffff
+-- ----------------------------
+DROP TABLE IF EXISTS `ffff`;
+CREATE TABLE `ffff`  (
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `number` int(5) NOT NULL,
+  `class` int(1) NOT NULL,
+  PRIMARY KEY (`number`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ffff
+-- ----------------------------
+INSERT INTO `ffff` VALUES ('nini', 11111, 1);
+INSERT INTO `ffff` VALUES ('hehe', 11112, 2);
+INSERT INTO `ffff` VALUES ('ojbk', 66666, 6);
+
+SET FOREIGN_KEY_CHECKS = 1;
